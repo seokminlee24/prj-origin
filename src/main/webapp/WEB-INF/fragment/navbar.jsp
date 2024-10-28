@@ -30,3 +30,16 @@
         </div>
     </nav>
 </div>
+
+<c:if test="${not empty message}">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-9 col-lg-6">
+                <div class="alert alert-${message.type} alert-dismissible fade show" role="alert">
+                        ${message.text}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</c:if>
