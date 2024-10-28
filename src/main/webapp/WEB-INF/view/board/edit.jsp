@@ -45,10 +45,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <button type="button">
-                        <i class="fa-regular fa-floppy-disk"></i>
-                        저장
-                    </button>
+                    <button>저장</button>
                 </div>
             </form>
 
