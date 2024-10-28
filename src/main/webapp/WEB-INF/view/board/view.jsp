@@ -46,7 +46,7 @@
             </div>
 
 
-            <button class="btn btn-outline-danger">
+            <button form="deleteForm1" class="btn btn-outline-danger">
                 <i class="fa-solid fa-trash-can"></i>
                 삭제
             </button>
