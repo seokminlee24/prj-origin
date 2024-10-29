@@ -65,12 +65,24 @@
 
 <nav class="mt-4">
     <ul class="pagination justify-content-center">
+        <li class="page-item">
+            <c:if test="${pageInfo.hasPrevPage}">
+                <a class="page-link" href="/board/list?page=${pageInfo.prevPageNumber}">이전</a>
+            </c:if>
+        </li>
         <c:forEach begin="${pageInfo.leftPageNumber}" end="${pageInfo.rightPageNumber}" var="pageNumber">
+
+
             <li class="page-item">
                 <a class="page-link ${pageInfo.currentPageNumber == pageNumber ? 'active' : '' }"
                    href="/board/list?page=${pageNumber}">${pageNumber}</a>
             </li>
         </c:forEach>
+        <li class="page-item">
+            <c:if test="${pageInfo.hasNextPage}">
+                <a class="page-link" href="/board/list?page=${pageInfo.nextPageNumber}">다음</a>
+            </c:if>
+        </li>
     </ul>
 </nav>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

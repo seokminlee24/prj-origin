@@ -31,15 +31,24 @@ public class BoardService {
         Integer lastPageNumber = (countAll - 1) / 10 + 1;
         Integer rightPageNumber = ((page - 1) / 10 + 1) * 10;
         Integer leftPageNumber = rightPageNumber - 9;
+        Integer nextPageNumber = rightPageNumber + 1;
+        Integer prevPageNumber = leftPageNumber - 1;
+        boolean hasNextPage = nextPageNumber < lastPageNumber;
+        boolean hasPrevPage = prevPageNumber > 0;
 
         rightPageNumber = Math.min(rightPageNumber, lastPageNumber);
 
         Map<String, Object> pageInfo = new HashMap<>();
 
+        pageInfo.put("nextPageNumber", nextPageNumber);
+        pageInfo.put("prevPageNumber", prevPageNumber);
+        pageInfo.put("hasNextPage", hasNextPage);
+        pageInfo.put("hasPrevPage", hasPrevPage);
         pageInfo.put("leftPageNumber", leftPageNumber);
         pageInfo.put("rightPageNumber", rightPageNumber);
         pageInfo.put("lastPageNumber", lastPageNumber);
         pageInfo.put("currentPageNumber", page);
+
 
         map.put("pageInfo", pageInfo);
         map.put("boardList", list);
