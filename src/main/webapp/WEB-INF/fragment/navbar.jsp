@@ -26,13 +26,13 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link ${param.active == 'signup' ? 'active' : ''}" href="/member/signup">
-                            <i class="fa-solid fa-user"></i>
+                            <i class="fa-solid fa-user-plus"></i>
                             회원가입
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link ${param.active == 'list' ? 'active' : ''}" href="/member/list">
-                            <i class="fa-solid fa-list"></i>
+                            <i class="fa-solid fa-users"></i>
                             회원 목록
                         </a>
                     </li>
