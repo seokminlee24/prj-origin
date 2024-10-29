@@ -3,6 +3,7 @@ package com.example.prjorigin.controller;
 import com.example.prjorigin.dto.Member;
 import com.example.prjorigin.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,8 +28,9 @@ public class MemberController {
     public String signupProcess(Member member, RedirectAttributes rttr) {
         service.addMember(member);
         rttr.addFlashAttribute("message", Map.of("type", "success",
-                "text", "회원가입 되었습니다."));
-        return "redirect:/member/list";
+                "text", "회원가입되었습니다."));
+
+        return "redirect:/board/list";
     }
 
     @GetMapping("list")
@@ -62,7 +64,20 @@ public class MemberController {
 
     @PostMapping("edit")
     public String editProcess(Member member, RedirectAttributes rttr) {
-        service.update(member);
-        return "redirect:/member/list";
+        try {
+            service.update(member);
+            rttr.addFlashAttribute("message", Map.of("type", "success",
+                    "text", "회원정보가 수정되었습니다."));
+
+        } catch (DuplicateKeyException e) {
+            rttr.addFlashAttribute("message", Map.of("type", "danger",
+                    "text", STR."\{member.getNickName()}은 이미 사용중인 별명입니다."));
+
+            rttr.addAttribute("id", member.getId());
+            return "redirect:/member/edit";
+        }
+
+        rttr.addAttribute("id", member.getId());
+        return "redirect:/member/view";
     }
 }

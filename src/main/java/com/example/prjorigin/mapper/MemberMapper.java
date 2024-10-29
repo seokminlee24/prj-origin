@@ -9,9 +9,9 @@ import java.util.List;
 public interface MemberMapper {
 
     @Insert("""
-            INSERT INTO jsp2.member
-            (id,password, nick_name, description)
-            VALUES (#{id},#{password}, #{nickName}, #{description})
+            INSERT INTO member
+            (id, password, nick_name, description)
+            VALUES (#{id}, #{password}, #{nickName}, #{description})
             """)
     int insert(Member member);
 
