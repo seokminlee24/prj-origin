@@ -18,4 +18,12 @@ FROM jsp2.board
 ORDER BY id
 LIMIT 0,10;
 
+SELECT COUNT(*)
+FROM board;
+# 페이징 연습용 게시물 복붙
+INSERT INTO board
+    (title, content, writer)
+SELECT title, content, writer
+FROM board;
+
 DROP TABLE board;

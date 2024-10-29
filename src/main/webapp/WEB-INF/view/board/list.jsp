@@ -59,7 +59,7 @@
 
 <nav class="mt-4">
     <ul class="pagination justify-content-center">
-        <c:forEach begin="1" end="${lastPageNumber}" var="pageNumber">
+        <c:forEach begin="${pageInfo.leftPageNumber}" end="${pageInfo.rightPageNumber}" var="pageNumber">
             <li class="page-item">
                 <a class="page-link" href="/board/list?page=${pageNumber}">${pageNumber}</a>
             </li>
