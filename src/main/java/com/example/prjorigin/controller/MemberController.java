@@ -80,4 +80,13 @@ public class MemberController {
         rttr.addAttribute("id", member.getId());
         return "redirect:/member/view";
     }
+
+    @GetMapping("edit-password")
+    public void editPassword(String id, Model model) {
+    }
+
+    @PostMapping("edit-password")
+    public String editPasswordProcess(Member member, RedirectAttributes rttr) {
+        return null;
+    }
 }
