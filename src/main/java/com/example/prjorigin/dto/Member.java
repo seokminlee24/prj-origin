@@ -1,0 +1,14 @@
+package com.example.prjorigin.dto;
+
+import lombok.Data;
+
+import java.time.LocalDateTime;
+
+@Data
+public class Member {
+    private String id;
+    private String nickName;
+    private String password;
+    private String description;
+    private LocalDateTime inserted;
+}

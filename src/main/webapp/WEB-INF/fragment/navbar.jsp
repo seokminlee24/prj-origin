@@ -24,6 +24,12 @@
                             작성
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link ${param.active == 'signup' ? 'active' : ''}" href="/member/signup">
+                            <i class="fa-solid fa-file-pen"></i>
+                            회원가입
+                        </a>
+                    </li>
                 </ul>
 
             </div>
