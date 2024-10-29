@@ -32,10 +32,14 @@ public class BoardService {
         Integer rightPageNumber = ((page - 1) / 10 + 1) * 10;
         Integer leftPageNumber = rightPageNumber - 9;
 
+        rightPageNumber = Math.min(rightPageNumber, lastPageNumber);
+
         Map<String, Object> pageInfo = new HashMap<>();
+
         pageInfo.put("leftPageNumber", leftPageNumber);
         pageInfo.put("rightPageNumber", rightPageNumber);
         pageInfo.put("lastPageNumber", lastPageNumber);
+
         map.put("pageInfo", pageInfo);
         map.put("boardList", list);
         return map;
