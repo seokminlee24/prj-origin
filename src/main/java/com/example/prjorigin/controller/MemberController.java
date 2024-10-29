@@ -28,11 +28,11 @@ public class MemberController {
         service.addMember(member);
         rttr.addFlashAttribute("message", Map.of("type", "success",
                 "text", "회원가입 되었습니다."));
-        return "redirect:/board/list";
+        return "redirect:/member/list";
     }
 
     @GetMapping("list")
     public void list(Model model) {
-
+        model.addAttribute("memberList", service.list());
     }
 }

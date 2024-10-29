@@ -30,6 +30,12 @@
                             회원가입
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link ${param.active == 'list' ? 'active' : ''}" href="/member/list">
+                            <i class="fa-solid fa-list"></i>
+                            회원 목록
+                        </a>
+                    </li>
                 </ul>
 
             </div>

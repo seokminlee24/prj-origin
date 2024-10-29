@@ -48,7 +48,7 @@
                     <label for="inputDescription1" class="form-label">
                         자기소개
                     </label>
-                    <TEXTAREA id="inputDescription1" name="nickName" rows="10" class="form-control"></TEXTAREA>
+                    <TEXTAREA id="inputDescription1" name="description1" rows="10" class="form-control"></TEXTAREA>
                 </div>
 
                 <div class="mb-3">
