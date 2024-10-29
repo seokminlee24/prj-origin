@@ -83,10 +83,11 @@ public class MemberController {
 
     @GetMapping("edit-password")
     public void editPassword(String id, Model model) {
+        model.addAttribute("id", id);
     }
 
     @PostMapping("edit-password")
-    public String editPasswordProcess(Member member, RedirectAttributes rttr) {
+    public String editPasswordProcess(String id, String oldPassword, String newPassword, RedirectAttributes rttr) {
         return null;
     }
 }
