@@ -1,4 +1,4 @@
-USE jsp;
+USE jsp2;
 
 CREATE TABLE board
 (
@@ -12,5 +12,10 @@ CREATE TABLE board
 SELECT *
 FROM board
 ORDER BY id;
+
+SELECT *
+FROM jsp2.board
+ORDER BY id
+LIMIT 0,10;
 
 DROP TABLE board;

@@ -15,10 +15,12 @@ public interface BoardMapper {
     int insert(Board board);
 
     @Select("""
-            SELECT * FROM board
-            ORDER BY id DESC
+                        SELECT * 
+            FROM board 
+            ORDER BY id DESC 
+            LIMIT #{offset}, 10
             """)
-    List<Board> selectAll();
+    List<Board> selectAllPaging(Integer offset);
 
     @Select("""
             SELECT * 
@@ -42,4 +44,5 @@ public interface BoardMapper {
                 id = #{id}
             """)
     int update(Board board);
+
 }
