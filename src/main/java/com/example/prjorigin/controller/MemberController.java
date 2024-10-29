@@ -2,6 +2,7 @@ package com.example.prjorigin.controller;
 
 import com.example.prjorigin.dto.Member;
 import com.example.prjorigin.service.MemberService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
@@ -108,7 +109,9 @@ public class MemberController {
     }
 
     @PostMapping("login")
-    public String loginProcess(String id, String password, RedirectAttributes rttr) {
+    public String loginProcess(String id, String password,
+                               RedirectAttributes rttr,
+                               HttpSession session) {
         Member member = service.get(id, password);
         if (member == null) {
             rttr.addFlashAttribute("message", Map.of("type", "warning",
@@ -117,7 +120,16 @@ public class MemberController {
         } else {
             rttr.addFlashAttribute("message", Map.of("type", "success",
                     "text", "로그인이 되었습니다."));
+            session.setAttribute("loggedInMember", member);
             return "redirect:/board/list";
         }
+    }
+
+    @RequestMapping("logout")
+    public String logout(HttpSession session, RedirectAttributes rttr) {
+        session.invalidate();
+        rttr.addFlashAttribute("message", Map.of("type", "success",
+                "text", "로그 아웃 되었습니다"));
+        return "redirect:/member/login";
     }
 }
