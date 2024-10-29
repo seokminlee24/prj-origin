@@ -6,7 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -18,9 +20,20 @@ public class BoardService {
         mapper.insert(board);
     }
 
-    public List<Board> list(Integer page) {
-        Integer offset = (page - 1) * 10; // page가 1일 때 offset은 0
-        return mapper.selectAllPaging(offset);
+    public Map<String, Object> list(Integer page) {
+        Integer offset = (page - 1) * 10;
+
+        List<Board> list = mapper.selectAllPaging(offset);
+
+        Map<String, Object> map = new HashMap<>();
+
+        Integer countAll = mapper.countAll();
+        Integer lastPageNumber = (countAll - 1) / 10 + 1;
+
+
+        map.put("lastPageNumber", lastPageNumber);
+        map.put("boardList", list);
+        return map;
     }
 
     public Board get(Integer id) {
