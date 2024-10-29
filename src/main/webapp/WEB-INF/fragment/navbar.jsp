@@ -36,6 +36,12 @@
                             회원 목록
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link ${param.active == 'list' ? 'active' : ''}" href="/member/login">
+                            <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                            로그인
+                        </a>
+                    </li>
                 </ul>
 
             </div>
