@@ -10,6 +10,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
           integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <style>
+        .custom-icon {
+            font-size: 1.5rem; /* 원하는 크기로 설정 */
+            vertical-align: middle; /* 세로 정렬 조정 */
+        }
+    </style>
 </head>
 <body>
 <c:import url="/WEB-INF/fragment/navbar.jsp"/>
@@ -46,9 +53,10 @@
             </div>
 
 
-            <button form="deleteForm1" class="btn btn-outline-danger">
-                <i class="fa-solid fa-trash-can"></i>
-                삭제
+            <button class="btn btn-outline-danger"
+                    data-bs-toggle="modal" data-bs-target="#deleteConfirmModal1">
+                <i class="fa-solid fa-trash-can custom-icon">삭제</i>
+
             </button>
             <a class="btn btn-outline-primary" href="/board/edit?id=${board.id}">
                 <i class="fa-solid fa-pen-to-square"></i>
@@ -62,6 +70,30 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteConfirmModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">삭제 확인</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ${board.id}번 게시물을 삭제하시겠습니까?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    닫기
+                </button>
+                <button form="deleteForm1" class="btn btn-danger">
+                    삭제
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
         crossorigin="anonymous"></script>
