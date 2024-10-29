@@ -13,7 +13,8 @@
 
     <style>
         .custom-icon {
-            font-size: 1.5rem; /* 원하는 크기로 설정 */
+            font-size: 1.0rem; /* 원하는 아이콘 크기로 설정 */
+            padding: 0.25rem;
             vertical-align: middle; /* 세로 정렬 조정 */
         }
     </style>
