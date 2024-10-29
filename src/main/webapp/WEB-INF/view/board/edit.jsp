@@ -21,7 +21,7 @@
 
             <h2 class="my-3">${board.id}번 게시물 수정</h2>
 
-            <form method="post">
+            <form method="post" id="updateForm1">
                 <div class="mb-3">
                     <label for="inputTitle1" class="form-label">
                         제목
@@ -45,10 +45,37 @@
                 </div>
 
                 <div class="mb-3">
-                    <button>저장</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#updateConfirmModal1">
+                        <i class="fa-regular fa-floppy-disk">저장</i>
+                    </button>
                 </div>
             </form>
 
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="updateConfirmModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">수정 확인</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ${board.id}번 게시물을 수정하시겠습니까?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    닫기
+                </button>
+                <button form="updateForm1" class="btn btn-danger">
+                    수정
+                </button>
+            </div>
         </div>
     </div>
 </div>
