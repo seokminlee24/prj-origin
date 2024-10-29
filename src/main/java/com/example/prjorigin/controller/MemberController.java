@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Map;
@@ -31,12 +32,21 @@ public class MemberController {
         rttr.addFlashAttribute("message", Map.of("type", "success",
                 "text", "회원가입되었습니다."));
 
-        return "redirect:/board/list";
+        return "redirect:/member/login";
     }
 
     @GetMapping("list")
-    public void list(Model model) {
-        model.addAttribute("memberList", service.list());
+    public String list(Model model,
+                       @SessionAttribute(value = "loggedInMember", required = false) Member member,
+                       RedirectAttributes rttr) {
+        if (member == null) {
+            rttr.addFlashAttribute("message", Map.of("type", "warning",
+                    "text", "로그인한 회원만 회원 목록을 볼 수 있습니다."));
+            return "redirect:/member/login";
+        } else {
+            model.addAttribute("memberList", service.list());
+            return null;
+        }
     }
 
     @GetMapping("view")
@@ -46,15 +56,25 @@ public class MemberController {
     }
 
     @PostMapping("delete")
-    public String delete(String id, String password, RedirectAttributes rttr) {
-        if (service.remove(id, password)) {
-            rttr.addFlashAttribute("message", Map.of("type", "dark",
-                    "text", "탈퇴 하셨습니다."));
-            return "redirect:/member/signup";
+    public String delete(String id, String password,
+                         RedirectAttributes rttr,
+                         HttpSession session,
+                         @SessionAttribute("loggedInMember") Member member) {
+        if (service.hasAccess(id, member)) {
+            if (service.remove(id, password)) {
+                rttr.addFlashAttribute("message", Map.of("type", "dark",
+                        "text", "탈퇴 하셨습니다."));
+                return "redirect:/member/signup";
+            } else {
+                rttr.addFlashAttribute("message", Map.of("type", "dark",
+                        "text", "패스워드 가 일치 하지 않습니다.."));
+                return "redirect:/member/view";
+            }
         } else {
-            rttr.addFlashAttribute("message", Map.of("type", "dark",
-                    "text", "패스워드 가 일치 하지 않습니다.."));
-            return "redirect:/member/view";
+            rttr.addFlashAttribute("message", Map.of("type", "danger",
+                    "text", "권한이 없습니다."));
+            session.invalidate();
+            return "redirect:/member/login";
         }
     }
 
