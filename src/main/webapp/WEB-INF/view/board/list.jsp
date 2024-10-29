@@ -12,10 +12,6 @@
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
     <style>
-        .active {
-            background-color: yellow;
-        }
-
         .custom-icon {
             font-size: 1.5rem; /* 원하는 크기로 설정 */
             vertical-align: middle; /* 세로 정렬 조정 */
@@ -71,12 +67,20 @@
 <nav class="mt-4">
     <ul class="pagination justify-content-center">
         <li class="page-item">
+            <c:if test="${pageInfo.currentPageNumber > 1}">
+                <a class="page-link" href="/board/list?page=1">
+                    <i class="fa-solid fa-backward custom-icon"></i> <!-- 첫 페이지 아이콘 -->
+                </a>
+            </c:if>
+        </li>
+        <li class="page-item">
             <c:if test="${pageInfo.hasPrevPage}">
                 <a class="page-link" href="/board/list?page=${pageInfo.prevPageNumber}">
                     <i class="fa-solid fa-caret-left custom-icon"></i>
                 </a>
             </c:if>
         </li>
+
         <c:forEach begin="${pageInfo.leftPageNumber}" end="${pageInfo.rightPageNumber}" var="pageNumber">
 
 
@@ -85,10 +89,18 @@
                    href="/board/list?page=${pageNumber}">${pageNumber}</a>
             </li>
         </c:forEach>
+
         <li class="page-item">
             <c:if test="${pageInfo.hasNextPage}">
                 <a class="page-link" href="/board/list?page=${pageInfo.nextPageNumber}">
                     <i class="fa-solid fa-caret-right custom-icon"></i>
+                </a>
+            </c:if>
+        </li>
+        <li class="page-item">
+            <c:if test="${pageInfo.currentPageNumber < pageInfo.lastPageNumber}">
+                <a class="page-link" href="/board/list?page=${pageInfo.lastPageNumber}">
+                    <i class="fa-solid fa-forward custom-icon"></i>
                 </a>
             </c:if>
         </li>
