@@ -22,7 +22,14 @@ public class MemberService {
         return mapper.selectAll();
     }
 
-    public Member info(Integer id) {
+
+    public Member info(String id) {
         return mapper.selectById(id);
+    }
+
+
+    public boolean remove(String id, String password) {
+        int cnt = mapper.deleteByIdAndPassword(id, password);
+        return cnt == 1;
     }
 }
