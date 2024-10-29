@@ -14,14 +14,12 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <c:if test="${not loggedIn}">
-                        <li class="nav-item">
-                            <a class="nav-link ${param.active == 'list' ? 'active' : ''}" href="/board/list">
-                                <i class="fa-solid fa-list"></i>
-                                목록
-                            </a>
-                        </li>
-                    </c:if>
+                    <li class="nav-item">
+                        <a class="nav-link ${param.active == 'list' ? 'active' : ''}" href="/board/list">
+                            <i class="fa-solid fa-list"></i>
+                            목록
+                        </a>
+                    </li>
                     <c:if test="${loggedIn}">
                         <li class="nav-item">
                             <a class="nav-link ${param.active == 'new' ? 'active' : ''}" href="/board/new">
@@ -42,7 +40,7 @@
                         <li class="nav-item">
                             <a class="nav-link ${param.active == 'list' ? 'active' : ''}" href="/member/list">
                                 <i class="fa-solid fa-users"></i>
-                                회원 목록
+                                회원목록
                             </a>
                         </li>
                     </c:if>
