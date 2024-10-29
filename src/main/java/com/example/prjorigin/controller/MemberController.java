@@ -82,12 +82,23 @@ public class MemberController {
     }
 
     @GetMapping("edit-password")
-    public void editPassword(String id, Model model) {
+    public String editPassword(String id, Model model) {
         model.addAttribute("id", id);
+        return "/member/editPassword";
     }
 
     @PostMapping("edit-password")
     public String editPasswordProcess(String id, String oldPassword, String newPassword, RedirectAttributes rttr) {
-        return null;
+        if (service.updatePassword(id, oldPassword, newPassword)) {
+            rttr.addFlashAttribute("message", Map.of("type", "success",
+                    "text", "패스워드 변경 했습니다."));
+            rttr.addAttribute("id", id);
+            return "redirect:/member/view";
+        } else {
+            rttr.addFlashAttribute("message", Map.of("type", "warning",
+                    "text", "패스워드 변경되지 않습니다."));
+            rttr.addAttribute("id", id);
+            return "redirect:/member/edit-password";
+        }
     }
 }
