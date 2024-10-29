@@ -15,6 +15,11 @@
         .active {
             background-color: yellow;
         }
+
+        .custom-icon {
+            font-size: 1.5rem; /* 원하는 크기로 설정 */
+            vertical-align: middle; /* 세로 정렬 조정 */
+        }
     </style>
 </head>
 <body>
@@ -67,7 +72,9 @@
     <ul class="pagination justify-content-center">
         <li class="page-item">
             <c:if test="${pageInfo.hasPrevPage}">
-                <a class="page-link" href="/board/list?page=${pageInfo.prevPageNumber}">이전</a>
+                <a class="page-link" href="/board/list?page=${pageInfo.prevPageNumber}">
+                    <i class="fa-solid fa-caret-left custom-icon"></i>
+                </a>
             </c:if>
         </li>
         <c:forEach begin="${pageInfo.leftPageNumber}" end="${pageInfo.rightPageNumber}" var="pageNumber">
@@ -80,7 +87,9 @@
         </c:forEach>
         <li class="page-item">
             <c:if test="${pageInfo.hasNextPage}">
-                <a class="page-link" href="/board/list?page=${pageInfo.nextPageNumber}">다음</a>
+                <a class="page-link" href="/board/list?page=${pageInfo.nextPageNumber}">
+                    <i class="fa-solid fa-caret-right custom-icon"></i>
+                </a>
             </c:if>
         </li>
     </ul>
