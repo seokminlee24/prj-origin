@@ -10,6 +10,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
           integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <style>
+        .active {
+            background-color: yellow;
+        }
+    </style>
 </head>
 <body>
 
@@ -61,7 +67,8 @@
     <ul class="pagination justify-content-center">
         <c:forEach begin="${pageInfo.leftPageNumber}" end="${pageInfo.rightPageNumber}" var="pageNumber">
             <li class="page-item">
-                <a class="page-link" href="/board/list?page=${pageNumber}">${pageNumber}</a>
+                <a class="page-link ${pageInfo.currentPageNumber == pageNumber ? 'active' : '' }"
+                   href="/board/list?page=${pageNumber}">${pageNumber}</a>
             </li>
         </c:forEach>
     </ul>
