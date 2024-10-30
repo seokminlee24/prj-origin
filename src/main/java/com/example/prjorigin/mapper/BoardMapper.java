@@ -17,24 +17,23 @@ public interface BoardMapper {
     int insert(Board board, Member member);
 
     @Select("""
-                                                <script>
-                                                SELECT * 
-                                    FROM board 
-                        <trim prefix="WHERE" prefixOverrides="OR">
-                        <if test="searchTarget == 'all' or searchTarget == 'title'">
-                        title LIKE CONCAT('%', #{keyword}, '%')
-                        </if>
-                            <if test="searchTarget == 'all' or searchTarget == 'content'">
-                        title LIKE CONCAT('%', #{keyword}, '%')
-            </if>
-                            <if test="searchTarget == 'all' or searchTarget == 'writer'">
-                                                    OR writer LIKE CONCAT('%', #{keyword}, '%')
-                                                </if>
-            
-                        </trim>
-                                    ORDER BY id DESC 
-                                    LIMIT #{offset}, 10
-                        </script>
+            <script>
+            SELECT * 
+            FROM board 
+            <trim prefix="WHERE" prefixOverrides="OR">
+             <if test="searchTarget == 'all' or searchTarget == 'title'">
+                title LIKE CONCAT('%', #{keyword}, '%')
+             </if>
+              <if test="searchTarget == 'all' or searchTarget == 'content'">
+                title LIKE CONCAT('%', #{keyword}, '%')
+              </if>
+              <if test="searchTarget == 'all' or searchTarget == 'writer'">
+                OR writer LIKE CONCAT('%', #{keyword}, '%')
+              </if>
+            </trim>
+            ORDER BY id DESC 
+            LIMIT #{offset}, 10
+             </script>
             """)
     List<Board> selectAllPaging(Integer offset, String searchTarget, String keyword);
 
@@ -62,8 +61,21 @@ public interface BoardMapper {
     int update(Board board);
 
     @Select("""
+            <script>
             SELECT COUNT(id)
             FROM board
+            <trim prefix="WHERE" prefixOverrides="OR">
+             <if test="searchTarget == 'all' or searchTarget == 'title'">
+                title LIKE CONCAT('%', #{keyword}, '%')
+             </if>
+              <if test="searchTarget == 'all' or searchTarget == 'content'">
+                title LIKE CONCAT('%', #{keyword}, '%')
+              </if>
+              <if test="searchTarget == 'all' or searchTarget == 'writer'">
+                OR writer LIKE CONCAT('%', #{keyword}, '%')
+              </if>
+            </trim>
+                </script>
             """)
-    Integer countAll();
+    Integer countAll(String searchTarget, String keyword);
 }

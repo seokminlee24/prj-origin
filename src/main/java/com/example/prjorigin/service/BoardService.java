@@ -28,7 +28,7 @@ public class BoardService {
 
         Map<String, Object> map = new HashMap<>();
 
-        Integer countAll = mapper.countAll();
+        Integer countAll = mapper.countAll(searchTarget, keyword);
         Integer lastPageNumber = (countAll - 1) / 10 + 1;
         Integer rightPageNumber = ((page - 1) / 10 + 1) * 10;
         Integer leftPageNumber = rightPageNumber - 9;
