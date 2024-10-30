@@ -1,14 +1,12 @@
 package com.example.prjorigin.controller;
 
 import com.example.prjorigin.dto.Board;
+import com.example.prjorigin.dto.Member;
 import com.example.prjorigin.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Map;
@@ -20,13 +18,24 @@ public class BoardController {
     private final BoardService service;
 
     @GetMapping("new")
-    public void newBoard() {
-
+    public String newBoard(@SessionAttribute(value = "loggedInMember", required = false) Member member,
+                           RedirectAttributes rttr) {
+        if (member == null) {
+            // 로그인 안한 상태
+            rttr.addFlashAttribute("message", Map.of("type", "warning",
+                    "text", "로그인한 회원만 글 작성이 가능합니다."));
+            return "redirect:/member/login";
+        } else {
+            // 로그인 한 상태
+            // /WEB-INF/view/board/new.jsp
+            return "board/new";
+        }
     }
 
     @PostMapping("new")
-    public String newBoard(Board board, RedirectAttributes rttr) {
-        service.add(board);
+    public String newBoard(Board board, RedirectAttributes rttr,
+                           @SessionAttribute("loggedInMember") Member member) {
+        service.add(board, member);
 
         rttr.addFlashAttribute("message", Map.of("type", "success",
                 "text", "새 게시물이 작성되었습니다."));

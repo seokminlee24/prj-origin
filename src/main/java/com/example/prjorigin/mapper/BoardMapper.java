@@ -1,6 +1,7 @@
 package com.example.prjorigin.mapper;
 
 import com.example.prjorigin.dto.Board;
+import com.example.prjorigin.dto.Member;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -10,9 +11,10 @@ public interface BoardMapper {
     @Insert("""
             INSERT INTO board
             (title, content, writer)
-            VALUES (#{title}, #{content}, #{writer})
+            VALUES (#{board.title}, #{board.content}, #{member.id})
             """)
-    int insert(Board board);
+    @Options(useGeneratedKeys = true, keyProperty = "board.id")
+    int insert(Board board, Member member);
 
     @Select("""
                         SELECT * 

@@ -1,6 +1,7 @@
 package com.example.prjorigin.service;
 
 import com.example.prjorigin.dto.Board;
+import com.example.prjorigin.dto.Member;
 import com.example.prjorigin.mapper.BoardMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,8 +17,8 @@ import java.util.Map;
 public class BoardService {
     private final BoardMapper mapper;
 
-    public void add(Board board) {
-        mapper.insert(board);
+    public void add(Board board, Member member) {
+        mapper.insert(board, member);
     }
 
     public Map<String, Object> list(Integer page) {
