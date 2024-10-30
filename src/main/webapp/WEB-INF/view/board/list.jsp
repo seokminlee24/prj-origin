@@ -38,8 +38,9 @@
                     <th>
                         <i class="fa-regular fa-user"></i>
                     </th>
-                    <th>
-                        <i class="fa-regular fa-calendar-days"></i>
+                    <th class="d-none d-lg-table-cell">
+                        <i class=" fa-regular fa-calendar-days
+                    "></i>
                     </th>
                 </tr>
                 </thead>
@@ -53,7 +54,7 @@
                             </a>
                         </td>
                         <td>${board.writer}</td>
-                        <td>${board.inserted}</td>
+                        <td class="d-none d-lg-table-cell">${board.inserted}</td>
                     </tr>
                 </c:forEach>
 
