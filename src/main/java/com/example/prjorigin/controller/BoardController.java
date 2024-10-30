@@ -2,6 +2,7 @@ package com.example.prjorigin.controller;
 
 import com.example.prjorigin.dto.Board;
 import com.example.prjorigin.dto.Member;
+import com.example.prjorigin.mapper.MemberMapper;
 import com.example.prjorigin.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class BoardController {
     private final BoardService service;
+    private final MemberMapper memberMapper;
 
     @GetMapping("new")
     public String newBoard(@SessionAttribute(value = "loggedInMember", required = false) Member member,
