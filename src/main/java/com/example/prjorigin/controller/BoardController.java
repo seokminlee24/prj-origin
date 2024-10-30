@@ -44,9 +44,11 @@ public class BoardController {
 
     @GetMapping("list")
     public void listBoard(@RequestParam(name = "page", defaultValue = "1") Integer page,
+                          String searchTarget,
+                          String keyword,
                           Model model) {
         // 한 페이지에 10개의 게시물
-        Map<String, Object> result = service.list(page);
+        Map<String, Object> result = service.list(page, searchTarget, keyword);
         model.addAllAttributes(result);
 
     }

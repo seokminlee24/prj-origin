@@ -63,6 +63,27 @@
     </div>
 </div>
 
+<div class="container">
+    <form class="row justify-content-center">
+        <div class="col-2 col-lg-1">
+            <select name="searchTarget" id="select1" class="form-select">
+                <option value="all">전체</option>
+                <option value="title" ${param.searchTarget == 'title' ? 'selected' : ''}>제목</option>
+                <option value="content" ${param.searchTarget == 'content' ? 'selected' : ''}>본문</option>
+                <option value="writer" ${param.searchTarget == 'writer' ? 'selected' : ''}>작성자</option>
+            </select>
+        </div>
+        <div class="col-4 col-lg-2">
+            <input type="text" class="form-control" name="keyword" value="${param.keyword}">
+        </div>
+        <div class="col-1">
+            <button class="btn btn-outline-primary h-100">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </div>
+    </form>
+</div>
+
 <nav class="mt-4">
     <ul class="pagination justify-content-center">
         <li class="page-item">
@@ -80,12 +101,17 @@
             </c:if>
         </li>
 
-        <c:forEach begin="${pageInfo.leftPageNumber}" end="${pageInfo.rightPageNumber}" var="pageNumber">
-
-
-            <li class="page-item">
-                <a class="page-link ${pageInfo.currentPageNumber == pageNumber ? 'active' : '' }"
-                   href="/board/list?page=${pageNumber}">${pageNumber}</a>
+        <c:forEach begin="${pageInfo.leftPageNumber}"
+                   end="${pageInfo.rightPageNumber}"
+                   var="pageNumber">
+            <c:url value="/board/list" var="pageLink">
+                <c:param name="page" value="${pageNumber}"/>
+                <c:param name="searchTarget" value="${param.searchTarget}"/>
+                <c:param name="keyword" value="${param.keyword}"/>
+            </c:url>
+            <li class="page-item ${pageInfo.currentPageNumber == pageNumber ? 'active' : '' }">
+                <a href="${pageLink}"
+                   class="page-link">${pageNumber}</a>
             </li>
         </c:forEach>
 
