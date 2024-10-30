@@ -86,20 +86,30 @@
 
 <nav class="mt-4">
     <ul class="pagination justify-content-center">
-        <li class="page-item">
-            <c:if test="${pageInfo.currentPageNumber > 1}">
-                <a class="page-link" href="/board/list?page=1">
+        <c:if test="${pageInfo.currentPageNumber > 1}">
+            <c:url value="/board/list" var="pageLink">
+                <c:param name="page" value="1"/>
+                <c:param name="searchTarget" value="${param.searchTarget}"/>
+                <c:param name="keyword" value="${param.keyword}"/>
+            </c:url>
+            <li class="page-item">
+                <a class="page-link" href="${pageLink}">
                     <i class="fa-solid fa-backward custom-icon"></i> <!-- 첫 페이지 아이콘 -->
                 </a>
-            </c:if>
-        </li>
-        <li class="page-item">
-            <c:if test="${pageInfo.hasPrevPage}">
-                <a class="page-link" href="/board/list?page=${pageInfo.prevPageNumber}">
+            </li>
+        </c:if>
+        <c:if test="${pageInfo.hasPrevPage}">
+            <c:url value="/board/list" var="pageLink">
+                <c:param name="page" value="${pageInfo.prevPageNumber}"></c:param>
+                <c:param name="searchTarget" value="${param.searchTarget}"/>
+                <c:param name="keyword" value="${param.keyword}"/>
+            </c:url>
+            <li class="page-item">
+                <a class="page-link" href="${pageLink}">
                     <i class="fa-solid fa-caret-left custom-icon"></i>
                 </a>
-            </c:if>
-        </li>
+            </li>
+        </c:if>
 
         <c:forEach begin="${pageInfo.leftPageNumber}"
                    end="${pageInfo.rightPageNumber}"
@@ -115,20 +125,31 @@
             </li>
         </c:forEach>
 
-        <li class="page-item">
-            <c:if test="${pageInfo.hasNextPage}">
-                <a class="page-link" href="/board/list?page=${pageInfo.nextPageNumber}">
+        <c:if test="${pageInfo.hasNextPage}">
+            <c:url value="/board/list" var="pageLink">
+                <c:param name="page" value="${pageInfo.nextPageNumber}"/>
+                <c:param name="searchTarget" value="${param.searchTarget}"/>
+                <c:param name="keyword" value="${param.keyword}"/>
+            </c:url>
+            <li class="page-item">
+                <a class="page-link" href="${pageLink}">
                     <i class="fa-solid fa-caret-right custom-icon"></i>
                 </a>
-            </c:if>
-        </li>
-        <li class="page-item">
-            <c:if test="${pageInfo.currentPageNumber < pageInfo.lastPageNumber}">
-                <a class="page-link" href="/board/list?page=${pageInfo.lastPageNumber}">
+            </li>
+        </c:if>
+        <c:if test="${pageInfo.currentPageNumber < pageInfo.lastPageNumber}">
+            <c:url value="/board/list" var="pageLink">
+                <c:param name="page" value="${pageInfo.lastPageNumber}"/>
+                <c:param name="searchTarget" value="${param.searchTarget}"/>
+                <c:param name="keyword" value="${param.keyword}"/>
+            </c:url>
+            <li class="page-item">
+                <a class="page-link" href="${pageLink}">
                     <i class="fa-solid fa-forward custom-icon"></i>
                 </a>
-            </c:if>
-        </li>
+
+            </li>
+        </c:if>
     </ul>
 </nav>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
