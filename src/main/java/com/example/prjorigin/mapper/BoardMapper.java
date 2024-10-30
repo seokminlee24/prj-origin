@@ -38,9 +38,15 @@ public interface BoardMapper {
     List<Board> selectAllPaging(Integer offset, String searchTarget, String keyword);
 
     @Select("""
-            SELECT * 
-            FROM board
-            WHERE id = #{id}
+                    SELECT b.id,
+                        b.title,
+                        b.content,
+                        b.inserted
+                        b,writer,
+                        m.nick_name writerNickName
+                    FROM jsp2.board b JOIN jsp2.member m 
+                    ON b.writer = m.id
+                    WHERE b.id = #{id}
             """)
     Board selectById(Integer id);
 
