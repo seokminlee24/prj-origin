@@ -21,7 +21,7 @@ CREATE TABLE auth
     name VARCHAR(100) NOT NULL,
     PRIMARY KEY (id, name)
 );
-DROP TABLE auth;
+# DROP TABLE auth;
 
 SELECT *
 FROM auth;
