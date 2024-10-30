@@ -26,8 +26,13 @@ CREATE TABLE auth
 SELECT *
 FROM auth;
 
-# admin, bdmin
-INSERT INTO auth
-    (id, name)
-VALUES ('admin', 'admin'),
-       ('bdmin', 'admin');
+SELECT *
+FROM board;
+
+SELECT *
+FROM member;
+# 게시물의 writer 값을 member에 있는 값으로 update
+
+UPDATE board
+SET writer = (SELECT id FROM member LIMIT 1)
+WHERE id > 0;

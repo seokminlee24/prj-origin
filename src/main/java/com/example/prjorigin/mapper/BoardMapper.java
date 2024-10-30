@@ -18,35 +18,39 @@ public interface BoardMapper {
 
     @Select("""
             <script>
-            SELECT * 
-            FROM board 
-            <trim prefix="WHERE" prefixOverrides="OR">
-             <if test="searchTarget == 'all' or searchTarget == 'title'">
-                title LIKE CONCAT('%', #{keyword}, '%')
-             </if>
-              <if test="searchTarget == 'all' or searchTarget == 'content'">
-                title LIKE CONCAT('%', #{keyword}, '%')
-              </if>
-              <if test="searchTarget == 'all' or searchTarget == 'writer'">
-                OR writer LIKE CONCAT('%', #{keyword}, '%')
-              </if>
-            </trim>
-            ORDER BY id DESC 
-            LIMIT #{offset}, 10
-             </script>
+                SELECT b.id,
+                       b.title,
+                       b.inserted,
+                       m.nick_name writerNickName
+                FROM board b JOIN member m
+                    ON b.writer = m.id
+                <trim prefix="WHERE" prefixOverrides="OR">
+                    <if test="searchTarget == 'all' or searchTarget == 'title'">
+                        title LIKE CONCAT('%', #{keyword}, '%')
+                    </if>
+                    <if test="searchTarget == 'all' or searchTarget == 'content'">
+                        OR content LIKE CONCAT('%', #{keyword}, '%')
+                    </if>
+                    <if test="searchTarget == 'all' or searchTarget == 'writer'">
+                        OR m.nick_name LIKE CONCAT('%', #{keyword}, '%')
+                    </if>
+                </trim>
+                ORDER BY b.id DESC
+                LIMIT #{offset}, 10
+            </script>
             """)
     List<Board> selectAllPaging(Integer offset, String searchTarget, String keyword);
 
     @Select("""
-                    SELECT b.id,
-                        b.title,
-                        b.content,
-                        b.inserted
-                        b,writer,
-                        m.nick_name writerNickName
-                    FROM jsp2.board b JOIN jsp2.member m 
+            SELECT b.id,
+                   b.title,
+                   b.content,
+                   b.inserted,
+                   b.writer,
+                   m.nick_name writerNickName
+            FROM board b JOIN member m
                     ON b.writer = m.id
-                    WHERE b.id = #{id}
+            WHERE b.id = #{id}
             """)
     Board selectById(Integer id);
 
@@ -59,8 +63,7 @@ public interface BoardMapper {
     @Update("""
             UPDATE board
             SET title=#{title},
-                content=#{content}, 
-                writer=#{writer}
+                content=#{content}
             WHERE   
                 id = #{id}
             """)
@@ -68,20 +71,21 @@ public interface BoardMapper {
 
     @Select("""
             <script>
-            SELECT COUNT(id)
-            FROM board
-            <trim prefix="WHERE" prefixOverrides="OR">
-             <if test="searchTarget == 'all' or searchTarget == 'title'">
-                title LIKE CONCAT('%', #{keyword}, '%')
-             </if>
-              <if test="searchTarget == 'all' or searchTarget == 'content'">
-                title LIKE CONCAT('%', #{keyword}, '%')
-              </if>
-              <if test="searchTarget == 'all' or searchTarget == 'writer'">
-                OR writer LIKE CONCAT('%', #{keyword}, '%')
-              </if>
-            </trim>
-                </script>
+                SELECT COUNT(b.id) 
+                FROM board b JOIN member m
+                    ON b.writer = m.id
+                <trim prefix="WHERE" prefixOverrides="OR">
+                    <if test="searchTarget == 'all' or searchTarget == 'title'">
+                        title LIKE CONCAT('%', #{keyword}, '%')
+                    </if>
+                    <if test="searchTarget == 'all' or searchTarget == 'content'">
+                        OR content LIKE CONCAT('%', #{keyword}, '%')
+                    </if>
+                    <if test="searchTarget == 'all' or searchTarget == 'writer'">
+                        OR m.nick_name LIKE CONCAT('%', #{keyword}, '%')
+                    </if>
+                </trim>
+            </script>
             """)
     Integer countAll(String searchTarget, String keyword);
 }
