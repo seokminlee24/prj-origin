@@ -56,18 +56,19 @@
             </div>
             <div>
                 <c:if test="${hasAccess}">
-                    <button class="btn btn-outline-danger"
-                            data-bs-toggle="modal" data-bs-target="#deleteConfirmModal1">
-                        <i class="fa-solid fa-trash-can custom-icon">삭제</i>
+                <button class="btn btn-outline-danger"
+                        data-bs-toggle="modal" data-bs-target="#deleteConfirmModal1">
+                    <i class="fa-solid fa-trash-can custom-icon">삭제</i>
 
-                    </button>
-                </c:if>
+                </button>
+
 
                 <a class="btn btn-outline-primary" href="/board/edit?id=${board.id}">
                     <i class="fa-solid fa-pen-to-square"></i>
                     수정
                 </a>
             </div>
+            </c:if>
 
             <c:if test="${hasAccess}">
                 <form id="deleteForm1" class="d-none" action="/board/delete" method="post">
