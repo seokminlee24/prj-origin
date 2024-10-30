@@ -88,4 +88,10 @@ public interface BoardMapper {
             </script>
             """)
     Integer countAll(String searchTarget, String keyword);
+
+    @Delete("""
+                DELETE FROM board
+                WHERE id = #{memberId}
+            """)
+    int deleteByMemberId(String memberId);
 }

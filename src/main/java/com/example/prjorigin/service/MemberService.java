@@ -1,6 +1,7 @@
 package com.example.prjorigin.service;
 
 import com.example.prjorigin.dto.Member;
+import com.example.prjorigin.mapper.BoardMapper;
 import com.example.prjorigin.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberMapper mapper;
+    private final BoardMapper boardMapper;
 
     public void addMember(Member member) {
         mapper.insert(member);
@@ -29,7 +31,12 @@ public class MemberService {
 
 
     public boolean remove(String id, String password) {
-        int cnt = mapper.deleteByIdAndPassword(id, password);
+        int cnt = 0;
+        Member member = mapper.selectById(id);
+        if (member.getPassword().equals(password)) {
+            boardMapper.deleteByMemberId(id);
+            cnt = mapper.deleteByIdAndPassword(id, password);
+        }
         return cnt == 1;
     }
 
